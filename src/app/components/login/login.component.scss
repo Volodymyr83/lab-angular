@@ -1,0 +1,38 @@
+.login-form {
+    width: 320px;
+    height: 340px;
+    margin: 10rem auto;
+    background: white;
+    border: transparent;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    h2 {
+        margin: 0 0 1rem;
+    }
+
+    .input-container {
+        display: flex;
+        flex-direction: column;
+
+        input {
+            padding: 5px;
+            border: 1px solid gray;
+            border-radius: 4px;
+        }
+    }
+
+    button {
+        width: 11rem;
+        margin-top: 1rem;
+        padding: 5px 0;
+        border: 1px solid gray;
+        border-radius: 4px;
+        background-color: #6C69FF;
+        color: white;
+    }
+}
