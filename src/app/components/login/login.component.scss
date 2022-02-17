@@ -10,9 +10,16 @@
     align-items: center;
     justify-content: center;
     gap: 1rem;
+    position: relative;
 
     h2 {
         margin: 0 0 1rem;
+    }
+
+    .alertMessage {
+        color: red;
+        position: absolute;
+        top: 70px;
     }
 
     .input-container {
@@ -35,11 +42,16 @@
         background-color: #6C69FF;
         color: white;
 
-        
+        &:active {
+            transform: scale(0.98);
+        }
+
+        &:disabled {
+            background-color: grey;
+        }   
+             
     }
 
-    :disabled {
-        background-color: grey;
-    }
+    
     
 }
