@@ -1,28 +1,63 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Injectable, OnInit } from '@angular/core';
+import { Observable, of, Subject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
-import { MessageService } from './message.service';
 import { User } from '../user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private usersUrl = 'https://lab-angular-json-server.herokuapp.com/users';
+  private _currentUser: User | undefined;  
+  userIsLoggedIn = new Subject();
 
+  //JSON-server deployed on heroku was used as backend for the app.
+  private serverURL: string = 'https://lab-angular-json-server.herokuapp.com';
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   }
 
-  constructor(private http: HttpClient, private messageService: MessageService) { }
+  constructor(private http: HttpClient) { }
+  
+  set currentUser(user: User | undefined) {
+    this._currentUser = user;
+    if (user) {
+      localStorage.setItem('currentUser', JSON.stringify(user));
+    } else {
+      localStorage.removeItem('currentUser');
+    }    
+  }
+
+  get currentUser(): User | undefined {
+    if (this._currentUser === undefined) {      
+      let jsonUserData = localStorage.getItem('currentUser');
+      if (jsonUserData) {
+        this.currentUser = JSON.parse(jsonUserData);        
+      }      
+    }
+    return this._currentUser;
+  }  
+
+  // public userIsLoggedIn(): Observable<boolean> {
+  //   //const loggedIn = this.currentUser ? true : false;
+  //   return this.userIsLoggedIn;
+  // }
 
   public getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.usersUrl).pipe(
+    return this.http.get<User[]>(this.serverURL + '/users').pipe(      
       tap(_ => this.log('fetched users')),
       catchError(this.handleError<User[]>('getUsers', []))
     );
-  } 
+  }
+
+  public updateUser(user: User): Observable<any> {
+    const userData = {...user};
+    delete userData.id;
+    return this.http.put(this.serverURL + '/users/' + user.id, userData, this.httpOptions).pipe(
+      tap(_ => this.log(`updated user id=${user.id}`)),
+      catchError(this.handleError<any>('updateUser'))
+    );
+  }
 
    /** THE HEROES TUTORIAL HAS BEEN USED IN THE CREATION OF THIS SERVICE
  * Handle Http operation that failed.
@@ -33,20 +68,15 @@ export class UserService {
  */
     private handleError<T>(operation = 'operation', result?: T) {
       return (error: any): Observable<T> => {
-  
-        // TODO: send the error to remote logging infrastructure
-        console.error(error); // log to console instead
-  
-        // TODO: better job of transforming error for user consumption
+        console.error(error);  
         this.log(`${operation} failed: ${error.message}`);
-  
+
         // Let the app keep running by returning an empty result.
         return of(result as T);
       };
     }
   
-    /** Log a UserService message with the MessageService */
     private log(message: string) {
-      this.messageService.add(`UserService: ${message}`);
+      console.log(`UserService: ${message}`);
     }
 }

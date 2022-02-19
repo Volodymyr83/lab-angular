@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-navigation',
@@ -6,17 +8,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./navigation.component.scss']
 })
 export class NavigationComponent implements OnInit {
-  navIsHidden: boolean = true;
+  navIsHidden!: boolean;
   activeElement!: HTMLElement;
 
-  constructor() { }
+  constructor(private userService: UserService, private router: Router) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void {    
+    this.navIsHidden = this.userService.currentUser ? false : true;
+    this.userService.userIsLoggedIn.subscribe(result => {
+      this.navIsHidden = result ? false : true;
+    });     
   }
 
-  navClick(event: any) {
-    console.log(event.currentTarget);
+  navClick(event: any) {    
     this.activeElement = event.target;
+  }
+
+  onLogout() {
+    this.userService.currentUser = undefined;
+    this.userService.userIsLoggedIn.next(false);
+    this.router.navigate(['login']);
   }
 
 }

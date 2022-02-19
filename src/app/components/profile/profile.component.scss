@@ -1,0 +1,58 @@
+.profile-form {
+    width: 320px;
+    height: 400px;
+    margin: 6rem auto;
+    background: white;
+    border: transparent;
+    box-shadow: 0px 4px 4px #aaa;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    position: relative;
+
+    h2 {
+        margin: 0 0 1rem;
+    }
+
+    .alertMessage {
+        color: red;
+        position: absolute;
+        top: 70px;
+    }
+
+    .input-container {
+        display: flex;
+        flex-direction: column;
+
+        input {
+            padding: 5px;
+            border: 1px solid gray;
+            border-radius: 4px;
+        }
+    }
+
+    button {
+        width: 11rem;
+        margin-top: 1rem;
+        padding: 5px 0;
+        border: 1px solid gray;
+        border-radius: 4px;
+        background-color: #6C69FF;
+        color: white;
+
+        &:active {
+            transform: scale(0.98);
+        }
+
+        &:disabled {
+            background-color: grey;
+        }   
+             
+    }
+
+    
+    
+}

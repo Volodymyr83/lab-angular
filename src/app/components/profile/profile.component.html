@@ -1,1 +1,45 @@
-<p>profile works!</p>
+<div class="profile-form-container">
+    <form class="profile-form" (ngSubmit)="onSubmit()" #loginForm="ngForm" >
+        <h2>Profile</h2>
+        <div class="username-container input-container">
+            <label for="username">Name</label>
+            <input
+                type="text"
+                [(ngModel)]="user.username"
+                #username="ngModel"            
+                name="username"
+                id="username"
+                placeholder="Username"               
+            >
+        </div>        
+        <h5 class="alertMessage" [hidden]="alertIsHidden"> Email is not valid!</h5>
+        <div class="email-container input-container">
+            <label for="email">Email</label>
+            <input
+                type="email"                                
+                [(ngModel)]="user.email"                
+                name="email"
+                id="email"
+                placeholder="Email"
+                disabled
+            >        
+        </div>
+        <div class="password-container input-container">
+            <label for="password">Age</label>
+            <input
+                type="number"
+                [(ngModel)]="user.age"
+                #age="ngModel"            
+                name="password"
+                id="password"
+                placeholder="Password"               
+            >
+        </div>
+        <button
+            type="submit"
+            [disabled]="!emailIsValid || age.value <= 0 || !username.value"
+        >Save</button>    
+    </form>
+</div>
+
+

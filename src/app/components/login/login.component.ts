@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/user';
 import { EMAIL_REG_EXP } from 'src/email-validation-regExp';
 import { UserService } from 'src/app/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -17,9 +18,12 @@ export class LoginComponent implements OnInit {
   users: User[] = [];
 
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
+    if (this.userService.currentUser) {
+      this.router.navigate(['games']);
+    }
     this.getUsers();
   }
 
@@ -32,25 +36,23 @@ export class LoginComponent implements OnInit {
     const registeredUser = this.users.find(user => user.email === this.emailValue);
 
     if (registeredUser && registeredUser.password === this.passwordValue) {
-      this.loginFormIsHidden = true;
-      console.log('log in!')
+      //this.loginFormIsHidden = true;      
+      this.userService.currentUser = registeredUser;
+      this.userService.userIsLoggedIn.next(true);
+      console.log('logged in!');
+      this.router.navigate(['games']);
     } else {
       this.alertIsHidden = false;
     }
-
-
   }
 
-  onEmailChange() {
-    console.log('Email is changed!');
+  onEmailChange() {    
     const validEmail: boolean = EMAIL_REG_EXP.test(this.emailValue);    
 
     if (validEmail) {
-      this.emailIsValid = true;
-      console.log('Email is TRUE!');
+      this.emailIsValid = true;      
     } else {
-      this.emailIsValid = false;
-      console.log('Email is FALSE!');
+      this.emailIsValid = false;      
     }
   }
 
