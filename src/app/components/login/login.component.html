@@ -1,7 +1,11 @@
 <div class="login-form-container" [hidden]="loginFormIsHidden">
     <form class="login-form" (ngSubmit)="onSubmit()" #loginForm="ngForm" >
-        <h2>Sign In</h2>        
-        <h5 class="alertMessage" [hidden]="alertIsHidden"> Email or login is not valid!</h5>
+        <h2>{{isSignIn ? 'Sign In' : 'Register'}}</h2>        
+        <h5
+            class="alertMessage"
+            [ngClass]="alertIsHidden ? 'not-visible' : ''"
+            
+            >{{alertMessage}}</h5>
         <div class="email-container input-container">
             <label for="email">Email</label>
             <input
@@ -27,10 +31,27 @@
                 required
             >
         </div>
+        <div class="confirm-container input-container" *ngIf="!isSignIn">
+            <label for="confirm">Confirm Password</label>
+            <input
+                type="password"
+                [(ngModel)]="confirmValue"
+                #confirm="ngModel"            
+                name="confirm"
+                id="confirm"
+                placeholder="Password"
+                required
+            >
+        </div>
         <button
+            class="sign-in-button"
             type="submit"
             [disabled]="!loginForm.form.valid || !emailIsValid"
-        >Sign In</button>    
+            >{{isSignIn ? 'Sign In' : 'Save'}}</button>
+        <div
+            class="sign-up-switch"
+            (click)="switchLogin()"
+            >{{isSignIn ? 'Sign Up' : 'Sign In'}}</div>
     </form>
 </div>
 

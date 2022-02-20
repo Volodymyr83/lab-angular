@@ -1,6 +1,6 @@
 .login-form {
     width: 320px;
-    height: 340px;
+    height: 400px;
     margin: 8rem auto;
     background: white;
     border: transparent;
@@ -14,13 +14,21 @@
     position: relative;
 
     h2 {
-        margin: 0 0 1rem;
+        margin: 0;
     }
 
     .alertMessage {
         color: red;
-        position: absolute;
-        top: 70px;
+        border: 1px solid red;
+        padding: 5px;
+        background-color: rgb(233, 197, 218);
+        margin: 0;
+        min-height: 1rem;
+        max-width: 12rem;
+    }
+
+    .not-visible {
+        visibility: hidden;        
     }
 
     .input-container {
@@ -34,7 +42,7 @@
         }
     }
 
-    button {
+    .sign-in-button {
         width: 11rem;
         margin-top: 1rem;
         padding: 5px 0;
@@ -53,6 +61,17 @@
              
     }
 
-    
+    .sign-up-switch {
+        border: none;
+        background: none;
+        text-decoration: underline;
+        color: blue;
+        font-size: 1rem;
+        cursor: pointer;
+
+        &:active {
+            color: #6C69FF;
+        }
+    }
     
 }

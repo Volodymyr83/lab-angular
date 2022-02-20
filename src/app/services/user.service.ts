@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { Observable, of, Subject } from 'rxjs';
+import { Observable, of, Subject, firstValueFrom } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { catchError, map, tap } from 'rxjs/operators';
 import { User } from '../user';
@@ -56,6 +56,32 @@ export class UserService {
     return this.http.put(this.serverURL + '/users/' + user.id, userData, this.httpOptions).pipe(
       tap(_ => this.log(`updated user id=${user.id}`)),
       catchError(this.handleError<any>('updateUser'))
+    );
+  }
+
+  private async asyncGetUsers() {
+    return await firstValueFrom(this.getUsers());
+  } 
+
+  public addUser(email: string, password: string): Observable<User> {
+    let users: User[] = [];
+    this.asyncGetUsers().then(res => users = res);
+    let id: number = 1;
+    if (users) {
+      id = Math.max(...users.map<number>(user => user.id!)) + 1
+    }
+    
+    const newUser: User = {
+      id,
+      username: '',
+      age: 0,
+      email,
+      password
+    }
+    
+    return this.http.post<User>(this.serverURL + '/users', newUser, this.httpOptions).pipe(
+      tap(_ => this.log(`added new user id=${newUser.id}`)),
+      catchError(this.handleError<any>('addUser'))
     );
   }
 

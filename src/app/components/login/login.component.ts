@@ -12,9 +12,12 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
   emailValue: string = '';
   passwordValue: string = '';
+  confirmValue: string = '';
   emailIsValid: boolean = false;
+  isSignIn: boolean = true;
   loginFormIsHidden = false;
   alertIsHidden = true;
+  alertMessage: string = '';
   users: User[] = [];
 
 
@@ -24,26 +27,63 @@ export class LoginComponent implements OnInit {
     if (this.userService.currentUser) {
       this.router.navigate(['games']);
     }
-    this.getUsers();
+    this.getUsers();    
   }
 
   getUsers(): void {
-    this.userService.getUsers().subscribe(users => this.users = users);
+    this.userService.getUsers().subscribe(users => {
+      this.users = users;
+      console.log(this.users);
+    });
   }
 
   onSubmit() {
     console.log('Form is submitted!');
     const registeredUser = this.users.find(user => user.email === this.emailValue);
 
-    if (registeredUser && registeredUser.password === this.passwordValue) {
+    if(this.isSignIn) {
+      this.signIn(registeredUser);
+    } else {
+      this.signUp(registeredUser);
+    }    
+  }
+
+  signIn(user: User | undefined) {
+    if (user && user.password === this.passwordValue) {
       //this.loginFormIsHidden = true;      
-      this.userService.currentUser = registeredUser;
+      this.userService.currentUser = user;
       this.userService.userIsLoggedIn.next(true);
       console.log('logged in!');
       this.router.navigate(['games']);
     } else {
-      this.alertIsHidden = false;
+      this.showAlertMessage('Email or login is not valid!');
     }
+  }
+
+  signUp(user: User | undefined) {
+    console.log(this.users);
+    if (user) {
+      this.showAlertMessage('User has already been registered!');
+    } else if (this.passwordValue.length < 8) {
+      this.showAlertMessage('Password has to be at least 8 characters long!');
+    } else if (this.passwordValue !== this.confirmValue) {
+      this.showAlertMessage('Passwords are not equal! Please try again.');
+      this.passwordValue = '';
+      this.confirmValue = '';
+    } else {
+      this.userService.addUser(this.emailValue, this.passwordValue)
+      .subscribe(user => {
+        this.users.push(user);
+        this.showAlertMessage('NEW USER REGISTERED!');
+        this.passwordValue = '';
+        this.confirmValue = '';
+      });
+    }
+  }
+
+  showAlertMessage(message: string) {
+    this.alertMessage = message;
+    this.alertIsHidden = false;
   }
 
   onEmailChange() {    
@@ -54,6 +94,13 @@ export class LoginComponent implements OnInit {
     } else {
       this.emailIsValid = false;      
     }
+  }
+
+  switchLogin() {
+    this.isSignIn = !this.isSignIn;
+    this.passwordValue = '';
+    this.confirmValue = '';
+    this.alertIsHidden = true;
   }
 
 }
