@@ -13,6 +13,8 @@ import { LibraryComponent } from './components/library/library.component';
 import { FriendsComponent } from './components/friends/friends.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { AuthGuard } from './guards/auth.guard';
+import { SearchComponent } from './components/search/search.component';
+import { FriendComponent } from './components/friend/friend.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { AuthGuard } from './guards/auth.guard';
     GamesComponent,
     LibraryComponent,
     FriendsComponent,
-    ProfileComponent
+    ProfileComponent,
+    SearchComponent,
+    FriendComponent
   ],
   imports: [
     BrowserModule,

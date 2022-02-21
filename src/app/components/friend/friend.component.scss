@@ -1,0 +1,26 @@
+.friend-container {
+    width: 100%;
+    padding: 5px;
+    margin: 1rem 0;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 4px;
+    box-shadow: 0px 4px 4px #aaa;
+    box-sizing: border-box;
+
+    button {
+        color: white;
+        border-radius: 4px;
+        border: none;
+        padding: 2px 5px;
+        cursor: pointer;
+
+        &:active {
+            transform: scale(0.98);
+        }
+
+        &:disabled {
+            background-color: grey;
+        }   
+    }
+}

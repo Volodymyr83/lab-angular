@@ -32,8 +32,7 @@ export class LoginComponent implements OnInit {
 
   getUsers(): void {
     this.userService.getUsers().subscribe(users => {
-      this.users = users;
-      console.log(this.users);
+      this.users = users;      
     });
   }
 
@@ -49,8 +48,7 @@ export class LoginComponent implements OnInit {
   }
 
   signIn(user: User | undefined) {
-    if (user && user.password === this.passwordValue) {
-      //this.loginFormIsHidden = true;      
+    if (user && user.password === this.passwordValue) {       
       this.userService.currentUser = user;
       this.userService.userIsLoggedIn.next(true);
       console.log('logged in!');

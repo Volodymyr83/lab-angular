@@ -1,1 +1,26 @@
-<p>friends works!</p>
+<div class="friends-form">
+    <div class="friends-form-container">
+        <h2>Friends</h2>
+        <app-search label="Friends" (onSearchResult)="searchFriends($event)"></app-search>
+        <div class="search-result-container" *ngIf="searchTerm">
+            <h2>Serch Friends: "{{searchTerm}}"</h2>
+            <app-friend 
+                *ngFor="let user of searchedUsers"
+                [friend]="user"
+                [buttonText]="'Add Friend'"
+                [buttonColor]="'green'"
+                (onButtonClick)="addFriend($event)"
+            ></app-friend>
+        </div>
+        <div class="my-friens-container">
+            <h2>My Friends:</h2>
+            <app-friend
+                *ngFor="let user of friendUsers"
+                [friend]="user"
+                [buttonText]="'Remove Friend'"
+                [buttonColor]="'indianred'"
+                (onButtonClick)="removeFriend($event)"
+            ></app-friend>
+        </div>
+    </div>    
+</div>

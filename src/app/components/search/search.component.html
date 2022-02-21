@@ -1,0 +1,7 @@
+<form class="serch-form" (ngSubmit)="onSubmit()">
+    <div class="input-container">
+        <label for="search-box">Search {{label}}</label>
+        <input type="text" #searchBox id="search-box" name="search-box" class="search-box" [(ngModel)]="searchValue">
+    </div>
+    <button type="submit" class="search-button">Search</button>
+</form>

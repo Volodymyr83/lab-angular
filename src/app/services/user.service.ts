@@ -76,7 +76,9 @@ export class UserService {
       username: '',
       age: 0,
       email,
-      password
+      password,
+      friends: [],
+      library: []
     }
     
     return this.http.post<User>(this.serverURL + '/users', newUser, this.httpOptions).pipe(
