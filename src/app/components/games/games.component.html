@@ -1,1 +1,7 @@
-<p>games works!</p>
+<div class="games-form">
+    <div class="games-form-container">
+        <h2>Games</h2>
+        <app-search label="Games" (onSearchResult)="searchGames($event)"></app-search>
+        <app-game-card *ngFor="let game of games" [game]="game"></app-game-card>
+    </div>    
+</div>

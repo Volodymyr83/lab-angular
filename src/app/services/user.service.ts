@@ -1,7 +1,7 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Observable, of, Subject, firstValueFrom } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { User } from '../user';
 
 @Injectable({
@@ -15,7 +15,7 @@ export class UserService {
   private serverURL: string = 'https://lab-angular-json-server.herokuapp.com';
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  }
+  };
 
   constructor(private http: HttpClient) { }
   
@@ -87,7 +87,7 @@ export class UserService {
     );
   }
 
-   /** THE HEROES TUTORIAL HAS BEEN USED IN THE CREATION OF THIS SERVICE
+   /**
  * Handle Http operation that failed.
  * Let the app continue.
  *
