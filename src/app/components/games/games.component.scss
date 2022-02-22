@@ -1,10 +1,10 @@
 .games-form {
-    width: 90%;
+    width: 90%;    
     margin: 2rem auto;
     padding-bottom: 2rem;
     background-color: white;
     border-radius: 4px;
-    min-height: 30rem;
+    min-height: 40rem;
     box-shadow: 0px 4px 4px #aaa;
     box-sizing: border-box;
 
@@ -16,6 +16,67 @@
 
         h2 {
             font-weight: normal;
+        }
+
+        .main-block {
+            display: flex;
+            width: 100%;
+
+            .game-cards-container {
+                width: 80%;
+                display: flex;
+                flex-wrap: wrap;                
+                gap: 1rem;
+                border-right: 1px solid gray;
+            }
+
+            .filter-container {
+                min-width: 10rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-start;              
+                gap: 3rem;
+
+                h4 {
+                    margin: 0;
+                    font-size: 1.2rem;
+                    margin-bottom: 1rem;
+                }
+
+                .price-filter-container {
+                    padding-left: 1rem;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+
+                    span {
+                        text-align: center;
+                    }
+                }
+
+                .tag-filter-container {
+                    padding-left: 1rem;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 0.5rem;
+                }
+            }
+        }
+
+        @media screen and (max-width: 550px) {
+            .main-block {
+                flex-direction: column-reverse;
+
+                .game-cards-container {
+                    width: 100%;
+                    margin: 4rem 0 2rem;
+                    flex-direction: column;
+                    align-items: center;
+                    flex-wrap: wrap;
+                    gap: 1rem;
+                    border-right: none;
+                }
+            }            
         }
     }
 }

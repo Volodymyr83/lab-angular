@@ -7,6 +7,7 @@ import { Game } from 'src/app/game';
   styleUrls: ['./game-card.component.scss']
 })
 export class GameCardComponent implements OnInit {
+  @Input() cardType!: string;
   @Input() game!: Game;
   @Output() onButtonClick = new EventEmitter();
 

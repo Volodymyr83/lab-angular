@@ -3,12 +3,12 @@
         <div class="game-name">
             <span>{{game.name}}</span>            
         </div>
-        <div class="game-price">
+        <div class="game-price" *ngIf="cardType === 'add-game-card'">
             <span>{{game.price}} UAH</span>
         </div>
     </div>
     <div class="game-card-main">
         <p>{{game.description}}</p>
-        <button>Add To Library</button>
+        <button class="button-add" *ngIf="cardType === 'add-game-card'">Add To Library</button>
     </div>
 </div>

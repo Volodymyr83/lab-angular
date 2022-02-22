@@ -2,6 +2,65 @@
     <div class="games-form-container">
         <h2>Games</h2>
         <app-search label="Games" (onSearchResult)="searchGames($event)"></app-search>
-        <app-game-card *ngFor="let game of games" [game]="game"></app-game-card>
+        <h2>Featured Games</h2>
+        <div class="main-block">
+            <div class="game-cards-container">
+                <app-game-card
+                    *ngFor="let game of filteredGames"
+                    [game]="game"
+                    cardType="add-game-card"></app-game-card>
+            </div>
+            <div class="filter-container">
+                <div class="price-filter-container">
+                    <h4>Filter by price:</h4>
+                    <input
+                        type="range"
+                        name="price-filter"
+                        id="price-filter"
+                        [min]="minimumPrice"
+                        [max]="maximumPrice"
+                        step="10"
+                        [(ngModel)]="priceValue"
+                        (input)="filterGames()"
+                    >
+                    <span>{{priceValue === maximumPrice ? 'Any price' : 'Up to: ' + priceValue + ' UAH'}}</span>
+                </div>
+                <div class="tag-filter-container">
+                    <h4>Filter by tag:</h4>
+                    <div class="check-box-container">
+                        <input
+                            type="checkbox"
+                            name="indie"
+                            id="indie"
+                            #indie                            
+                            [(ngModel)]="indieTag"
+                            (click)="switchIndie()"
+                        >
+                        <label for="indie">Indie</label>
+                    </div>
+                    <div class="check-box-container">
+                        <input
+                            type="checkbox"
+                            name="action"
+                            id="action"                            
+                            [(ngModel)]="actionTag"
+                            (click)="switchAction()"
+                        >
+                        <label for="action">Action</label>
+                    </div>
+                    <div class="check-box-container">
+                        <input
+                            type="checkbox"
+                            name="adventure"
+                            id="adventure"
+                            [(ngModel)]="adventureTag"
+                            (click)="switchAdventure()"
+                        >
+                        <label for="adventure">Adventure</label>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+        
     </div>    
 </div>
