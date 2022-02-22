@@ -38,7 +38,7 @@ $color1: #BDBCFF;
 
         .button-add {
             width: 100%;            
-            padding: 5px 0;
+            padding: 8px 0;
             border: 1px solid gray;
             border-radius: 4px;
             background-color: #6C69FF;
@@ -52,7 +52,35 @@ $color1: #BDBCFF;
                 background-color: grey;
             }   
         }
-        
-    }
+
+        .library-buttons {
+            display: flex;
+            justify-content: space-between;
+
+            .library-button {
+                width: 48%;
+                padding: 8px 0;
+                border: 1px solid #6C69FF;
+                border-radius: 4px;                
     
+                &:active {
+                    transform: scale(0.98);
+                }
+    
+                &:disabled {
+                    background-color: grey;
+                }
+            }
+
+            .download-button {
+                background-color: #6C69FF;
+                color: white;
+            }
+
+            .share-button {
+                background-color: white;
+                color: #6C69FF;
+            }
+        }        
+    }    
 }

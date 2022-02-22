@@ -9,11 +9,15 @@ import { Game } from 'src/app/game';
 export class GameCardComponent implements OnInit {
   @Input() cardType!: string;
   @Input() game!: Game;
-  @Output() onButtonClick = new EventEmitter();
+  @Output() onAddClick = new EventEmitter();
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  addToLibrary() {
+    this.onAddClick.emit();
   }
 
 }

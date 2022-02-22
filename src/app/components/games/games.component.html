@@ -1,5 +1,5 @@
 <div class="games-form">
-    <div class="games-form-container">
+    <div class="games-form-content">
         <h2>Games</h2>
         <app-search label="Games" (onSearchResult)="searchGames($event)"></app-search>
         <h2>Featured Games</h2>
@@ -8,7 +8,9 @@
                 <app-game-card
                     *ngFor="let game of filteredGames"
                     [game]="game"
-                    cardType="add-game-card"></app-game-card>
+                    cardType="add-game-card"
+                    (onAddClick)="AddGameToLibrary(game)"
+                ></app-game-card>
             </div>
             <div class="filter-container">
                 <div class="price-filter-container">

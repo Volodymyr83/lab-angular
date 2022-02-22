@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Game } from 'src/app/game';
 import { GameService } from 'src/app/services/game.service';
 import { UserService } from 'src/app/services/user.service';
+import { User } from 'src/app/user';
 
 @Component({
   selector: 'app-games',
@@ -23,22 +24,24 @@ export class GamesComponent implements OnInit {
   constructor(private userService: UserService, private gameService: GameService) { }
 
   ngOnInit(): void {
-    this.gameService.getGames().subscribe(games => {
+    this.gameService.getGames().subscribe(games => {      
       this.games = games;
-      this.filteredGames = games;
-      const prices = games.map(game => game.price);
-      this.minimumPrice = Math.min(...prices);
-      this.maximumPrice = Math.max(...prices);
-      this.priceValue = this.maximumPrice;
+
+      this.configureGamesState();
     });
   }
 
-  // configurePriceFilter() {
-  //   const prices = this.filteredGames.map(game => game.price);
-  //   this.minimumPrice = Math.min(...prices);
-  //   this.maximumPrice = Math.max(...prices);
-  //   this.priceValue = this.maximumPrice;
-  // }
+  configureGamesState() {
+    const user = this.userService.currentUser;
+    this.games = this.games.filter(game => !user?.library.includes(game.id));
+
+    const prices = this.games.map(game => game.price);
+    this.minimumPrice = Math.min(...prices);
+    this.maximumPrice = Math.max(...prices);
+    this.priceValue = this.maximumPrice;
+
+    this.filterGames();
+  }
 
   searchGames(data: string) {
     this.searchTerm = data.trim().toLowerCase();
@@ -70,8 +73,7 @@ export class GamesComponent implements OnInit {
     }
     if (this.adventureTag) {
       filterTags.push('Adventure');
-    }
-    console.log(filterTags);
+    }    
 
     let resultArray = this.games.filter(game => {
       const containsTag = game.tags.some(tag => filterTags.includes(tag));
@@ -83,5 +85,15 @@ export class GamesComponent implements OnInit {
     }
 
     this.filteredGames = resultArray;
+  }
+
+  AddGameToLibrary(game: Game) {
+    const user = {...this.userService.currentUser} as User;
+    user.library.push(game.id);
+
+    this.userService.updateUser(user).subscribe(user => {
+      this.userService.currentUser = user;
+      this.configureGamesState();
+    })
   }
 }
