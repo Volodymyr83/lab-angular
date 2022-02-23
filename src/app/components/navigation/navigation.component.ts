@@ -27,10 +27,6 @@ export class NavigationComponent implements OnInit {
       .subscribe(element => this.activeElement = element);   
   }
 
-  navClick(event: any) {    
-    //this.activeElement = event.target;
-  }
-
   onLogout() {
     this.userService.currentUser = undefined;
     this.userService.userIsLoggedIn.next(false);
