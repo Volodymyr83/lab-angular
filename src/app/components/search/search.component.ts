@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
 
-
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -16,9 +15,7 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit() {
-    //if (this.searchValue) {
-      this.onSearchResult.emit(this.searchValue);
-    //}
+  onSubmit() {    
+      this.onSearchResult.emit(this.searchValue);   
   }
 }

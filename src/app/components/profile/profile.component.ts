@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/user';
-import { EMAIL_REG_EXP } from 'src/email-validation-regExp';
 import { UserService } from 'src/app/services/user.service';
+import { NavigationService } from 'src/app/services/navigation.service';
 
 @Component({
   selector: 'app-profile',
@@ -13,9 +13,12 @@ export class ProfileComponent implements OnInit {
   alertIsHidden: boolean = true;
   user!: User;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private navService: NavigationService) {}
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
+    this.navService.currentNavigationElement.next('profile');    
     this.initiateUser();
   }
   
@@ -23,8 +26,7 @@ export class ProfileComponent implements OnInit {
     this.user = {...this.userService.currentUser} as User;  
   }
 
-  onSubmit() {
-    console.log('Form is submitted!');
+  onSubmit() {    
     this.user.age = Math.floor(this.user.age);
     this.user.username = this.user.username.trim();
 

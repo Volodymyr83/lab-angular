@@ -20,5 +20,4 @@ export class FriendComponent implements OnInit {
   onClick() {
     this.onButtonClick.emit(this.friend);
   }
-
 }

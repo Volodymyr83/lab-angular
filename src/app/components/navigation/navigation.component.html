@@ -1,15 +1,15 @@
 <div class="nav-bar-container" *ngIf="!navIsHidden" >
     <div class="menu-container">
-        <a routerLink="/games">
+        <a href="#">
             <img class="steam-logo"
             src="https://upload.wikimedia.org/wikipedia/commons/8/83/Steam_icon_logo.svg"
             alt="steam logo">
         </a>
         <div class="menu-container" (click)="navClick($event)">
-            <a routerLink="/games" #games [ngClass]="{'active' : games === activeElement }">Games</a>
-            <a routerLink="/library" #library [ngClass]="{'active' : library === activeElement }">Library</a>
-            <a routerLink="/friends" #friends [ngClass]="{'active' : friends === activeElement }">Friends</a>
-            <a routerLink="/profile" #profile [ngClass]="{'active' : profile === activeElement }">Profile</a>
+            <a routerLink="/games" #games [ngClass]="{'active' : activeElement === 'games' }">Games</a>
+            <a routerLink="/library" #library [ngClass]="{'active' : activeElement === 'library' }">Library</a>
+            <a routerLink="/friends" #friends [ngClass]="{'active' : activeElement === 'friends' }">Friends</a>
+            <a routerLink="/profile" #profile [ngClass]="{'active' : activeElement === 'profile' }">Profile</a>
         </div>   
     </div>
     <button class="logout-button" (click)="onLogout()">Log out</button>    

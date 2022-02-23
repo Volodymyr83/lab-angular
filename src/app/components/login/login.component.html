@@ -3,9 +3,8 @@
         <h2>{{isSignIn ? 'Sign In' : 'Register'}}</h2>        
         <h5
             class="alertMessage"
-            [ngClass]="alertIsHidden ? 'not-visible' : ''"
-            
-            >{{alertMessage}}</h5>
+            [ngClass]="alertIsHidden ? 'not-visible' : ''"            
+        >{{alertMessage}}</h5>
         <div class="email-container input-container">
             <label for="email">Email</label>
             <input
@@ -47,11 +46,11 @@
             class="sign-in-button"
             type="submit"
             [disabled]="!loginForm.form.valid || !emailIsValid"
-            >{{isSignIn ? 'Sign In' : 'Save'}}</button>
+        >{{isSignIn ? 'Sign In' : 'Save'}}</button>
         <div
             class="sign-up-switch"
             (click)="switchLogin()"
-            >{{isSignIn ? 'Sign Up' : 'Sign In'}}</div>
+        >{{isSignIn ? 'Sign Up' : 'Sign In'}}</div>
     </form>
 </div>
 

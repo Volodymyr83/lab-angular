@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Game } from 'src/app/game';
 import { GameService } from 'src/app/services/game.service';
+import { NavigationService } from 'src/app/services/navigation.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/user';
 
@@ -21,9 +22,14 @@ export class GamesComponent implements OnInit {
   actionTag: boolean = true;
   adventureTag: boolean = true;
 
-  constructor(private userService: UserService, private gameService: GameService) { }
+  constructor(
+    private userService: UserService,
+    private gameService: GameService,
+    private navService: NavigationService) { }
 
   ngOnInit(): void {
+    this.navService.currentNavigationElement.next('games');
+
     this.gameService.getGames().subscribe(games => {      
       this.games = games;
 

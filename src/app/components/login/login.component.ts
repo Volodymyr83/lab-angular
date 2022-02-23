@@ -20,7 +20,6 @@ export class LoginComponent implements OnInit {
   alertMessage: string = '';
   users: User[] = [];
 
-
   constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
@@ -36,8 +35,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  onSubmit() {
-    console.log('Form is submitted!');
+  onSubmit() {    
     const registeredUser = this.users.find(user => user.email === this.emailValue);
 
     if(this.isSignIn) {
@@ -51,15 +49,13 @@ export class LoginComponent implements OnInit {
     if (user && user.password === this.passwordValue) {       
       this.userService.currentUser = user;
       this.userService.userIsLoggedIn.next(true);
-      console.log('logged in!');
       this.router.navigate(['games']);
     } else {
       this.showAlertMessage('Email or login is not valid!');
     }
   }
 
-  signUp(user: User | undefined) {
-    console.log(this.users);
+  signUp(user: User | undefined) {    
     if (user) {
       this.showAlertMessage('User has already been registered!');
     } else if (this.passwordValue.length < 8) {
@@ -100,5 +96,4 @@ export class LoginComponent implements OnInit {
     this.confirmValue = '';
     this.alertIsHidden = true;
   }
-
 }

@@ -36,12 +36,7 @@ export class UserService {
       }      
     }
     return this._currentUser;
-  }  
-
-  // public userIsLoggedIn(): Observable<boolean> {
-  //   //const loggedIn = this.currentUser ? true : false;
-  //   return this.userIsLoggedIn;
-  // }
+  }
 
   public getUsers(): Observable<User[]> {
     return this.http.get<User[]>(this.serverURL + '/users').pipe(      

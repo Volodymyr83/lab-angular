@@ -9,7 +9,11 @@
     </div>
     <div class="game-card-main">
         <p>{{game.description}}</p>
-        <button class="button-add" *ngIf="cardType === 'add-game-card'" (click)="addToLibrary()">Add To Library</button>
+        <button
+            class="button-add"
+            *ngIf="cardType === 'add-game-card'"
+            (click)="addToLibrary()"
+        >Add To Library</button>
         <div class="library-buttons" *ngIf="cardType === 'library-game-card'">
             <button class="download-button library-button">Download</button>
             <button class="share-button library-button">Share</button>

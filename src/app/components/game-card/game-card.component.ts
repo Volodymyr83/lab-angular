@@ -19,5 +19,4 @@ export class GameCardComponent implements OnInit {
   addToLibrary() {
     this.onAddClick.emit();
   }
-
 }

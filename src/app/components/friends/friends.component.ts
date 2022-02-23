@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationService } from 'src/app/services/navigation.service';
 import { UserService } from 'src/app/services/user.service';
 import { User } from 'src/app/user';
 
@@ -13,9 +14,12 @@ export class FriendsComponent implements OnInit {
   searchedUsers!: User[];
   friendUsers!: User[];
 
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private navService: NavigationService) { }
 
   ngOnInit(): void {
+    this.navService.currentNavigationElement.next('friends');
     this.getUsers();
   }
 
@@ -60,5 +64,4 @@ export class FriendsComponent implements OnInit {
       this.searchFriends(this.searchTerm);
     })    
   }
-
 }
